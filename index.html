@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Profile | LinkedIn Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar container">
+        <h1 class="logo">Personal Profile</h1>
+        <button id="themeToggle" aria-label="Toggle color theme">🌙 Theme</button>
+      </nav>
+
+      <section class="hero-content container">
+        <div>
+          <p class="eyebrow">Professional Snapshot</p>
+          <h2 id="name">Your Name</h2>
+          <p id="headline" class="headline"></p>
+          <p id="summary"></p>
+          <div class="cta-row">
+            <a id="linkedinLink" class="btn primary" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+            <button class="btn" id="scrollToExperience">See Experience</button>
+          </div>
+        </div>
+        <div class="stats" id="statsGrid"></div>
+      </section>
+    </header>
+
+    <main class="container">
+      <section>
+        <h3>Core Strengths</h3>
+        <div id="skills" class="chip-grid"></div>
+      </section>
+
+      <section id="experienceSection">
+        <div class="section-header">
+          <h3>Experience Timeline</h3>
+          <div class="tabs" id="timelineTabs"></div>
+        </div>
+        <div id="timeline" class="timeline"></div>
+      </section>
+
+      <section>
+        <h3>Projects</h3>
+        <div id="projects" class="cards"></div>
+      </section>
+
+      <section>
+        <h3>Interests</h3>
+        <div id="interests" class="cards interests"></div>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <p>Designed for GitHub Pages. Update profile data in <code>script.js</code>.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
