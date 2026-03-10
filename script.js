@@ -27,8 +27,8 @@ const profileData = {
   experience: [
     {
       type: 'Industry',
-      tags: ['Multilingual LLM extraction', 'Ray inference pipelines', 'XGBoost modeling'],
-      subTags: ['Product ML', 'LLM Systems', 'MLOps'],
+      tags: ['Llama 3 + distilled SLM routing', 'Ray Serve batch inference', 'XGBoost attribute classification'],
+      subTags: ['Multilingual information extraction', 'Human-in-the-loop annotation', 'Offline↔online metric alignment'],
       role: 'Senior Machine Learning Engineer',
       company: 'Pinterest',
       period: 'Aug 2024 – Present',
@@ -41,8 +41,8 @@ const profileData = {
     },
     {
       type: 'Industry',
-      tags: ['LLM fine-tuning (LoRA/QLoRA)', 'RAG evaluation (Ragas)', 'Transformers + vLLM'],
-      subTags: ['GenAI', 'LLM Evaluation', 'Applied Research'],
+      tags: ['LoRA/QLoRA fine-tuning', 'Ragas + LLM-as-a-judge evaluation', 'Transformers inference with vLLM'],
+      subTags: ['RAG groundedness scoring', 'Quantization-aware deployment', 'Prompt + retrieval optimization'],
       role: 'Senior Machine Learning Engineer',
       company: 'Mozilla.ai',
       period: 'Aug 2023 – Aug 2024',
@@ -54,8 +54,8 @@ const profileData = {
     },
     {
       type: 'Industry',
-      tags: ['Recommendation ranking models', 'Candidate generation pipelines', 'Large-scale user signals'],
-      subTags: ['Recommender Systems', 'Product ML', 'Data Pipelines'],
+      tags: ['Two-tower retrieval pipelines', 'Learning-to-rank recommenders', 'Large-scale implicit feedback modeling'],
+      subTags: ['Candidate generation', 'Feature store training data', 'Engagement lift experimentation'],
       role: 'Machine Learning Engineer',
       company: 'Meta',
       period: 'May 2022 – Jul 2023',
@@ -67,8 +67,8 @@ const profileData = {
     },
     {
       type: 'Industry',
-      tags: ['Presto SQL optimization', 'Production data pipelines', 'Policy systems'],
-      subTags: ['Data Engineering', 'Platform', 'Product Infrastructure'],
+      tags: ['Presto query optimization', 'Treasure Data to Presto migration', 'Policy-rule backend services'],
+      subTags: ['ML data readiness pipelines', 'Low-latency analytics infra', 'Production monitoring'],
       role: 'Software Engineer',
       company: 'Wish',
       period: 'Jan 2022 – May 2022',
@@ -79,8 +79,8 @@ const profileData = {
     },
     {
       type: 'Research',
-      tags: ['Conversational AI research', 'AWS ML deployment', 'NLP dataset creation'],
-      subTags: ['Applied Research', 'NLP', 'Academic Lab'],
+      tags: ['Therapeutic dialogue modeling', 'SageMaker training + deployment', 'NLP dataset design + curation'],
+      subTags: ['Conversational AI evaluation', 'Clinical-domain annotation', 'End-to-end experiment loops'],
       role: 'Graduate Machine Learning Researcher',
       company: 'University of Toronto',
       period: 'Jan 2020 – Dec 2021',
@@ -92,8 +92,8 @@ const profileData = {
     },
     {
       type: 'Industry',
-      tags: ['Sentiment NLP', 'Watson ML', 'Disaster response modeling'],
-      subTags: ['Applied AI', 'Analytics', 'Enterprise ML'],
+      tags: ['Sentiment analysis NLP pipelines', 'Watson ML model lifecycle', 'Flood-risk prediction modeling'],
+      subTags: ['Feature engineering', 'Enterprise AI deployment', 'Decision-support analytics'],
       role: 'Software Engineer',
       company: 'IBM',
       period: 'Mar 2019 – Jan 2020',
@@ -104,8 +104,8 @@ const profileData = {
     },
     {
       type: 'Industry',
-      tags: ['Performance instrumentation', 'Workload simulation', 'Backend tooling'],
-      subTags: ['Backend Engineering', 'Developer Tooling', 'Systems'],
+      tags: ['Backend performance instrumentation', 'Traffic workload simulation', 'Reliability-focused service tooling'],
+      subTags: ['Systems profiling', 'Experiment test harnesses', 'Scalable backend foundations'],
       role: 'Software Engineer',
       company: 'Cisco Systems',
       period: 'May 2018 – Dec 2018',
@@ -214,7 +214,10 @@ function renderTimeline() {
   el.timeline.innerHTML = profileData.experience
     .map((item) => {
       const tags = (item.tags || [])
-        .map((tag) => `<span class="role-tag">${tag}</span>`)
+        .map((tag) => `<span class="role-tag role-tag-primary">${tag}</span>`)
+        .join('');
+      const subTags = (item.subTags || [])
+        .map((tag) => `<span class="role-tag role-tag-sub">${tag}</span>`)
         .join('');
 
       return `
@@ -223,6 +226,7 @@ function renderTimeline() {
             <h4>${item.role}</h4>
             <div class="role-tags">${tags}</div>
           </div>
+          <div class="role-tags role-subtags">${subTags}</div>
           <p class="meta"><strong>${item.company}</strong> · ${item.period}</p>
           <ul>${item.highlights.map((highlight) => `<li>${highlight}</li>`).join('')}</ul>
         </article>
