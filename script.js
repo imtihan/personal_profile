@@ -192,7 +192,6 @@ const el = {
   profileImage: document.getElementById('profileImage'),
   focusGrid: document.getElementById('focusGrid'),
   timeline: document.getElementById('timeline'),
-  nextSectionPreview: document.getElementById('nextSectionPreview'),
   projects: document.getElementById('projects'),
   skillsSummary: document.getElementById('skillsSummary'),
   techIcons: document.getElementById('techIcons'),
@@ -261,71 +260,23 @@ function initScrollReveal() {
   revealElements.forEach((section) => section.classList.add('reveal'));
 
   if (!('IntersectionObserver' in window)) {
-    revealElements.forEach((section) => section.classList.add('is-highlighted'));
+    revealElements.forEach((section) => section.classList.add('is-visible'));
     return;
   }
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-highlighted');
-          observer.unobserve(entry.target);
-        }
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
       });
     },
     {
       threshold: 0.16,
-      rootMargin: '0px 0px -8% 0px',
+      rootMargin: '-4% 0px -4% 0px',
     }
   );
 
   revealElements.forEach((section) => observer.observe(section));
-}
-
-
-
-function initNextSectionPreview() {
-  if (!el.nextSectionPreview) return;
-
-  const sections = Array.from(document.querySelectorAll('.main-stack .section'));
-  if (sections.length < 2) {
-    el.nextSectionPreview.classList.add('is-hidden');
-    return;
-  }
-
-  const updateNextPreview = () => {
-    const viewportBottom = window.scrollY + window.innerHeight;
-    let nextSection = null;
-
-    for (const section of sections) {
-      if (section.getBoundingClientRect().top > 0) {
-        nextSection = section;
-        break;
-      }
-    }
-
-    if (!nextSection) {
-      el.nextSectionPreview.classList.add('is-hidden');
-      return;
-    }
-
-    const nextTop = nextSection.getBoundingClientRect().top + window.scrollY;
-    const distance = Math.max(nextTop - viewportBottom, 0);
-    const peekHeight = Math.min(84, nextSection.offsetHeight);
-
-    if (distance > 220 || peekHeight < 24) {
-      el.nextSectionPreview.classList.add('is-hidden');
-      return;
-    }
-
-    el.nextSectionPreview.classList.remove('is-hidden');
-    el.nextSectionPreview.innerHTML = `<div class="next-section-preview__peek" style="height:${peekHeight}px"></div>`;
-  };
-
-  window.addEventListener('scroll', updateNextPreview, { passive: true });
-  window.addEventListener('resize', updateNextPreview);
-  updateNextPreview();
 }
 
 function updateThemeButtonText() {
@@ -358,4 +309,3 @@ renderTechIcons();
 renderCards(el.education, profileData.education);
 initTheme();
 initScrollReveal();
-initNextSectionPreview();

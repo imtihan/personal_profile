@@ -76,12 +76,11 @@ body {
 .interactive-box:hover { background: var(--interactive-hover-bg); }
 
 .reveal { opacity: 0.3; transform: translateY(22px) scale(0.985); transition: opacity 620ms ease, transform 620ms cubic-bezier(.34,1.56,.64,1); }
-.reveal.is-highlighted { opacity: 1; transform: translateY(0) scale(1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0) scale(1); }
 
 @media (prefers-reduced-motion: reduce) {
   #themeToggle,.btn,.interactive-box,.reveal { transition: none; transform: none; }
   .reveal { opacity: 1; }
-  .next-section-preview { display: none; }
 }
 
 #themeToggle {
@@ -192,30 +191,6 @@ h3 { margin: 0 0 0.9rem; font-size: 1.15rem; }
 .tech-item span { font-size: 0.82rem; color: color-mix(in hsl, var(--text) 74%, var(--muted)); line-height: 1.2; }
 
 
-.next-section-preview {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  width: min(940px, 92vw);
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 6;
-  opacity: 0.72;
-  transition: opacity 220ms ease;
-}
-.next-section-preview.is-hidden {
-  opacity: 0;
-}
-.next-section-preview__peek {
-  border: 1px solid var(--border);
-  border-bottom: none;
-  border-top-left-radius: 1.2rem;
-  border-top-right-radius: 1.2rem;
-  background: linear-gradient(180deg, color-mix(in hsl, var(--surface) 82%, transparent), transparent);
-  backdrop-filter: blur(8px);
-  box-shadow: var(--shadow-soft);
-}
-
 .footer {
   margin: 1rem auto 2rem;
   padding: 0.85rem 1rem;
@@ -225,7 +200,6 @@ h3 { margin: 0 0 0.9rem; font-size: 1.15rem; }
 
 @media (max-width: 620px) {
   .container { width: min(940px, 94vw); }
-  .next-section-preview { width: min(940px, 94vw); }
   .hero-content { grid-template-columns: 1fr; }
   .profile-image { width: 112px; height: 112px; }
 }
