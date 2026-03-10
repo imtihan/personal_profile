@@ -224,7 +224,7 @@ body.dark .role-tag-sub {
 .tech-item:hover {
   background: color-mix(in hsl, var(--surface-solid) 58%, var(--accent-soft));
 }
-.tech-item img { width: 24px; height: 24px; object-fit: contain; margin-bottom: 0; }
+.tech-item img { width: 24px; height: 24px; object-fit: contain; margin-bottom: 0; background: #fff; border-radius: 0.35rem; padding: 0.15rem; }
 .tech-item span { font-size: 0.82rem; color: color-mix(in hsl, var(--text) 74%, var(--muted)); line-height: 1.2; }
 
 
