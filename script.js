@@ -183,16 +183,6 @@ const profileData = {
 };
 
 
-const experienceTypeConfig = {
-  All: { label: 'All Work' },
-  Industry: { label: 'Product Engineering', key: 'product-engineering' },
-  Research: { label: 'Research & Academia', key: 'research-academia' },
-};
-
-function slugify(value) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-}
-
 const el = {
   name: document.getElementById('name'),
   headline: document.getElementById('headline'),
@@ -202,13 +192,12 @@ const el = {
   profileImage: document.getElementById('profileImage'),
   focusGrid: document.getElementById('focusGrid'),
   timeline: document.getElementById('timeline'),
-  tabs: document.getElementById('timelineTabs'),
+  nextSectionPreview: document.getElementById('nextSectionPreview'),
   projects: document.getElementById('projects'),
   skillsSummary: document.getElementById('skillsSummary'),
   techIcons: document.getElementById('techIcons'),
   education: document.getElementById('education'),
   themeToggle: document.getElementById('themeToggle'),
-  scrollHint: document.getElementById('scrollHint'),
 };
 
 function renderTopSection() {
@@ -220,58 +209,27 @@ function renderTopSection() {
   el.profileImage.src = profileData.profileImage;
 }
 
-function renderTimeline(selectedType = 'All') {
-  const items =
-    selectedType === 'All'
-      ? profileData.experience
-      : profileData.experience.filter((item) => item.type === selectedType);
+function renderTimeline() {
+  el.timeline.className = 'timeline';
 
-  const selectedKey = selectedType === 'All' ? 'all' : experienceTypeConfig[selectedType].key;
-  el.timeline.className = `timeline filter-${selectedKey}`;
-
-  el.timeline.innerHTML = items
+  el.timeline.innerHTML = profileData.experience
     .map((item) => {
-      const typeMeta = experienceTypeConfig[item.type] || { label: item.type, key: slugify(item.type) };
       const tags = (item.tags || [])
         .map((tag) => `<span class="role-tag">${tag}</span>`)
         .join('');
-      const subTags = (item.subTags || [])
-        .map((tag) => `<span class="role-subtag">${tag}</span>`)
-        .join('');
 
       return `
-        <article class="timeline-item ${typeMeta.key}-item interactive-box">
+        <article class="timeline-item interactive-box">
           <div class="experience-header-row">
-            <p class="experience-badge ${typeMeta.key}-badge">${typeMeta.label}</p>
+            <h4>${item.role}</h4>
             <div class="role-tags">${tags}</div>
           </div>
-          <div class="role-subtags">${subTags}</div>
-          <h4>${item.role}</h4>
           <p class="meta"><strong>${item.company}</strong> · ${item.period}</p>
           <ul>${item.highlights.map((highlight) => `<li>${highlight}</li>`).join('')}</ul>
         </article>
       `;
     })
     .join('');
-}
-
-function renderTabs() {
-  const tabs = ['All', ...new Set(profileData.experience.map((item) => item.type))];
-  el.tabs.innerHTML = tabs
-    .map((tab, index) => {
-      const label = experienceTypeConfig[tab]?.label || tab;
-      const key = tab === 'All' ? 'all' : experienceTypeConfig[tab]?.key || slugify(tab);
-      return `<button class="tab ${index === 0 ? 'active' : ''}" data-tab="${tab}" data-tab-key="${key}">${label}</button>`;
-    })
-    .join('');
-
-  el.tabs.querySelectorAll('.tab').forEach((tabBtn) => {
-    tabBtn.addEventListener('click', () => {
-      el.tabs.querySelectorAll('.tab').forEach((btn) => btn.classList.remove('active'));
-      tabBtn.classList.add('active');
-      renderTimeline(tabBtn.dataset.tab);
-    });
-  });
 }
 
 function renderCards(container, items) {
@@ -303,7 +261,7 @@ function initScrollReveal() {
   revealElements.forEach((section) => section.classList.add('reveal'));
 
   if (!('IntersectionObserver' in window)) {
-    revealElements.forEach((section) => section.classList.add('is-visible'));
+    revealElements.forEach((section) => section.classList.add('is-highlighted'));
     return;
   }
 
@@ -311,7 +269,7 @@ function initScrollReveal() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
+          entry.target.classList.add('is-highlighted');
           observer.unobserve(entry.target);
         }
       });
@@ -326,20 +284,48 @@ function initScrollReveal() {
 }
 
 
-function initScrollHint() {
-  if (!el.scrollHint) return;
 
-  const updateScrollHintVisibility = () => {
-    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 64;
-    el.scrollHint.classList.toggle('is-hidden', nearBottom);
+function initNextSectionPreview() {
+  if (!el.nextSectionPreview) return;
+
+  const sections = Array.from(document.querySelectorAll('.main-stack .section'));
+  if (sections.length < 2) {
+    el.nextSectionPreview.classList.add('is-hidden');
+    return;
+  }
+
+  const updateNextPreview = () => {
+    const viewportBottom = window.scrollY + window.innerHeight;
+    let nextSection = null;
+
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top > 0) {
+        nextSection = section;
+        break;
+      }
+    }
+
+    if (!nextSection) {
+      el.nextSectionPreview.classList.add('is-hidden');
+      return;
+    }
+
+    const nextTop = nextSection.getBoundingClientRect().top + window.scrollY;
+    const distance = Math.max(nextTop - viewportBottom, 0);
+    const peekHeight = Math.min(84, nextSection.offsetHeight);
+
+    if (distance > 220 || peekHeight < 24) {
+      el.nextSectionPreview.classList.add('is-hidden');
+      return;
+    }
+
+    el.nextSectionPreview.classList.remove('is-hidden');
+    el.nextSectionPreview.innerHTML = `<div class="next-section-preview__peek" style="height:${peekHeight}px"></div>`;
   };
 
-  el.scrollHint.addEventListener('click', () => {
-    window.scrollBy({ top: Math.max(window.innerHeight * 0.75, 420), behavior: 'smooth' });
-  });
-
-  window.addEventListener('scroll', updateScrollHintVisibility, { passive: true });
-  updateScrollHintVisibility();
+  window.addEventListener('scroll', updateNextPreview, { passive: true });
+  window.addEventListener('resize', updateNextPreview);
+  updateNextPreview();
 }
 
 function updateThemeButtonText() {
@@ -365,7 +351,6 @@ function initTheme() {
 
 renderTopSection();
 renderCards(el.focusGrid, profileData.focusAreas);
-renderTabs();
 renderTimeline();
 renderCards(el.projects, profileData.projects);
 renderCards(el.skillsSummary, profileData.skillsSummary);
@@ -373,4 +358,4 @@ renderTechIcons();
 renderCards(el.education, profileData.education);
 initTheme();
 initScrollReveal();
-initScrollHint();
+initNextSectionPreview();
