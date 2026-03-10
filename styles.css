@@ -167,6 +167,31 @@ h3 { margin: 0 0 0.9rem; font-size: 1.15rem; }
   background: color-mix(in hsl, var(--surface-solid) 88%, var(--accent-soft));
   font-weight: 600;
 }
+.role-tag-primary {
+  border-color: color-mix(in hsl, #5a63ff 45%, var(--border));
+  color: color-mix(in hsl, #2335ba 72%, var(--text));
+  background: color-mix(in hsl, #e0e5ff 72%, var(--surface-solid));
+}
+.role-tag-sub {
+  border-color: color-mix(in hsl, #16957a 48%, var(--border));
+  color: color-mix(in hsl, #0f725e 72%, var(--text));
+  background: color-mix(in hsl, #d7f5ee 76%, var(--surface-solid));
+}
+.role-subtags {
+  margin: 0.42rem 0 0.22rem;
+}
+
+body.dark .role-tag-primary {
+  border-color: color-mix(in hsl, #8fa0ff 52%, var(--border));
+  color: #d7deff;
+  background: color-mix(in hsl, #2b3560 66%, var(--surface-solid));
+}
+
+body.dark .role-tag-sub {
+  border-color: color-mix(in hsl, #46c3a8 52%, var(--border));
+  color: #bbf3e7;
+  background: color-mix(in hsl, #1f4e48 70%, var(--surface-solid));
+}
 .timeline-item ul { margin: 0.55rem 0 0; padding-left: 1.15rem; }
 
 .cards { display: grid; gap: 0.82rem; }
