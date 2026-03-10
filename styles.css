@@ -7,18 +7,24 @@
   --accent: #06b6d4;
   --border: #d9e0f0;
   --shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+  --interactive-bg: linear-gradient(135deg, color-mix(in hsl, var(--surface) 92%, transparent), color-mix(in hsl, var(--primary) 10%, transparent));
+  --interactive-hover-bg: linear-gradient(135deg, color-mix(in hsl, var(--surface) 72%, transparent), color-mix(in hsl, var(--accent) 26%, transparent));
 }
 
+
 body.dark {
-  --bg: #050914;
-  --surface: rgba(12, 19, 35, 0.85);
+  --bg: #0f172a;
+  --surface: rgba(20, 31, 52, 0.82);
   --text: #f5f7ff;
   --muted: #b4c0d8;
   --primary: #8b5cf6;
   --accent: #22d3ee;
   --border: #243354;
   --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  --interactive-bg: linear-gradient(135deg, color-mix(in hsl, var(--surface) 94%, transparent), color-mix(in hsl, var(--primary) 18%, transparent));
+  --interactive-hover-bg: linear-gradient(135deg, color-mix(in hsl, var(--surface) 72%, transparent), color-mix(in hsl, var(--accent) 34%, transparent));
 }
+
 
 * {
   box-sizing: border-box;
@@ -83,6 +89,57 @@ body {
 .logo {
   margin: 0;
   font-size: 1rem;
+}
+
+
+#themeToggle,
+.btn,
+.tab,
+.interactive-box {
+  transition: transform 220ms ease, box-shadow 220ms ease, background 280ms ease, border-color 220ms ease;
+}
+
+#themeToggle:hover,
+.btn:hover,
+.tab:hover,
+.interactive-box:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in hsl, var(--accent) 52%, var(--border));
+  box-shadow: 0 14px 34px color-mix(in hsl, var(--primary) 24%, transparent);
+}
+
+.interactive-box {
+  background: var(--interactive-bg);
+}
+
+.interactive-box:hover {
+  background: var(--interactive-hover-bg);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #themeToggle,
+  .btn,
+  .tab,
+  .interactive-box,
+  .reveal {
+    transition: none;
+    transform: none;
+  }
+
+  .reveal {
+    opacity: 1;
+  }
 }
 
 #themeToggle {
@@ -155,23 +212,28 @@ h2 {
 }
 
 .section.about {
-  border-left: 4px solid #0ea5e9;
+  border-left: 4px solid #0284c7;
+  background: linear-gradient(145deg, color-mix(in hsl, #0ea5e9 34%, var(--surface)), color-mix(in hsl, #67e8f9 18%, var(--surface)));
 }
 
 .section.experience {
-  border-left: 4px solid #8b5cf6;
+  border-left: 4px solid #7c3aed;
+  background: linear-gradient(145deg, color-mix(in hsl, #8b5cf6 34%, var(--surface)), color-mix(in hsl, #c084fc 18%, var(--surface)));
 }
 
 .section.projects {
-  border-left: 4px solid #14b8a6;
+  border-left: 4px solid #0f766e;
+  background: linear-gradient(145deg, color-mix(in hsl, #14b8a6 34%, var(--surface)), color-mix(in hsl, #5eead4 18%, var(--surface)));
 }
 
 .section.skills {
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid #d97706;
+  background: linear-gradient(145deg, color-mix(in hsl, #f59e0b 36%, var(--surface)), color-mix(in hsl, #fde047 18%, var(--surface)));
 }
 
 .section.education {
-  border-left: 4px solid #f43f5e;
+  border-left: 4px solid #e11d48;
+  background: linear-gradient(145deg, color-mix(in hsl, #f43f5e 33%, var(--surface)), color-mix(in hsl, #fda4af 17%, var(--surface)));
 }
 
 h3 {
@@ -222,9 +284,20 @@ h3 {
 }
 
 .tab.active {
-  background: var(--primary);
   border-color: transparent;
   color: #fff;
+}
+
+.tab.active[data-tab-key='all'] {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.tab.active[data-tab-key='product-engineering'] {
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+}
+
+.tab.active[data-tab-key='research-academia'] {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
 }
 
 .timeline {
@@ -237,7 +310,6 @@ h3 {
 .tech-item {
   border: 1px solid var(--border);
   border-radius: 0.8rem;
-  background: color-mix(in hsl, var(--surface) 85%, transparent);
 }
 
 .timeline-item {
@@ -253,6 +325,58 @@ h3 {
 .timeline-item .meta,
 .card p {
   color: var(--muted);
+}
+
+
+.experience-badge {
+  display: inline-flex;
+  margin: 0 0 0.5rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.product-engineering-badge {
+  background: color-mix(in hsl, #f59e0b 22%, transparent);
+  color: #f59e0b;
+  border: 1px solid color-mix(in hsl, #f59e0b 50%, var(--border));
+}
+
+.research-academia-badge {
+  background: color-mix(in hsl, #38bdf8 20%, transparent);
+  color: #38bdf8;
+  border: 1px solid color-mix(in hsl, #38bdf8 50%, var(--border));
+}
+
+.experience-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.role-tag {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+  background: color-mix(in hsl, var(--surface) 70%, transparent);
+}
+
+.filter-product-engineering .research-academia-item,
+.filter-research-academia .product-engineering-item {
+  opacity: 0.75;
 }
 
 .timeline-item ul {
