@@ -3,10 +3,10 @@ const profileData = {
   headline:
     'Building production ML and LLM systems that are efficient, reliable, and aligned with real product outcomes.',
   summary:
-    'I work at the intersection of machine learning engineering, LLM systems, and product impact. My recent work spans multilingual extraction, recommendation quality, evaluation frameworks for RAG, and scalable model deployment.',
+    'I build machine learning systems from idea to production. My work includes multilingual LLM extraction, recommendation ranking at scale, and practical evaluation pipelines that improve model quality, reliability, and business impact.',
   linkedin: 'https://www.linkedin.com',
   github: 'https://github.com/imtiahmed',
-  profileImage: 'https://github.com/imtiahmed.png',
+  profileImage: 'assets/profile-photo.jpg',
   focusAreas: [
     {
       title: 'Production LLM Systems',
@@ -27,84 +27,91 @@ const profileData = {
   experience: [
     {
       type: 'Industry',
-      tags: ['Product ML', 'LLM Systems', 'MLOps'],
+      tags: ['Multilingual LLM extraction', 'Ray inference pipelines', 'XGBoost modeling'],
+      subTags: ['Product ML', 'LLM Systems', 'MLOps'],
       role: 'Senior Machine Learning Engineer',
       company: 'Pinterest',
       period: 'Aug 2024 – Present',
       highlights: [
-        'Developed multilingual content extraction pipelines with integrated LLM/SLM workflows for international crawling and pin metadata generation.',
-        'Enhanced human-in-the-loop validation with LLM-based flows to scale data processing for labeling and quality control.',
-        'Unified inference endpoints and deployed Ray-based pipelines for large-scale, automated web-crawled extraction systems.',
-        'Improved product attribute detection by unifying training data across XGBoost extraction models to better align offline/online behavior.',
+        'Built multilingual extraction pipelines that combine LLM and SLM models to produce clean, structured product metadata from global web crawl data.',
+        'Expanded human-in-the-loop labeling and QA workflows using LLM-assisted review so model feedback cycles became faster and more consistent.',
+        'Deployed unified inference services with Ray so distributed extraction jobs could run reliably at scale with better throughput.',
+        'Improved XGBoost product-attribute models by unifying training data, which helped offline metrics better match online behavior.',
       ],
     },
     {
       type: 'Industry',
-      tags: ['GenAI', 'LLM Evaluation', 'Applied Research'],
+      tags: ['LLM fine-tuning (LoRA/QLoRA)', 'RAG evaluation (Ragas)', 'Transformers + vLLM'],
+      subTags: ['GenAI', 'LLM Evaluation', 'Applied Research'],
       role: 'Senior Machine Learning Engineer',
       company: 'Mozilla.ai',
       period: 'Aug 2023 – Aug 2024',
       highlights: [
-        'Tailored GPT, LLAMA, and Mistral models for domain-specific generation using fine-tuning, LoRA adaptation, and quantization.',
-        'Integrated the Ragas framework with LLM-as-a-judge evaluation workflows for improved RAG quality assessment.',
-        'Worked across Python, SQL, HF Transformers, Ragas, vLLM, and LangChain to operationalize LLM development.',
+        'Fine-tuned GPT, Llama, and Mistral models for domain-specific generation with LoRA/QLoRA and quantization to improve efficiency and quality.',
+        'Built RAG evaluation pipelines with Ragas and LLM-as-a-judge scoring to track groundedness, relevance, and answer quality in a clear way.',
+        'Used Python, SQL, Hugging Face Transformers, vLLM, and LangChain to move LLM experiments into repeatable production-style evaluation cycles.',
       ],
     },
     {
       type: 'Industry',
-      tags: ['Recommender Systems', 'Product ML', 'Data Pipelines'],
+      tags: ['Recommendation ranking models', 'Candidate generation pipelines', 'Large-scale user signals'],
+      subTags: ['Recommender Systems', 'Product ML', 'Data Pipelines'],
       role: 'Machine Learning Engineer',
       company: 'Meta',
       period: 'May 2022 – Jul 2023',
       highlights: [
-        'Trained new creator recommendation models and improved offline model performance against prior baselines.',
-        'Built data pipelines generating recommendation candidates from large-scale user interaction datasets.',
-        'Introduced new candidate sources that improved recommendation quality and product engagement.',
+        'Trained creator recommendation and ranking models on large behavioral datasets, improving offline quality over production baselines.',
+        'Built candidate generation pipelines from large-scale user interaction signals to supply strong inputs to ranking models.',
+        'Launched new retrieval sources that improved recommendation relevance and produced measurable engagement lift.',
       ],
     },
     {
       type: 'Industry',
-      tags: ['Data Engineering', 'Platform', 'Product Infrastructure'],
+      tags: ['Presto SQL optimization', 'Production data pipelines', 'Policy systems'],
+      subTags: ['Data Engineering', 'Platform', 'Product Infrastructure'],
       role: 'Software Engineer',
       company: 'Wish',
       period: 'Jan 2022 – May 2022',
       highlights: [
-        'Migrated data pipelines from Treasure Data to in-house Presto for faster and more cost-effective querying.',
-        'Owned merchant policy and violations feature updates to support local regulatory compliance needs.',
+        'Migrated production data pipelines from Treasure Data to Presto, reducing query latency and improving reliability for downstream ML and product systems.',
+        'Delivered merchant policy and violations system updates that improved rule-based enforcement in regulated markets.',
       ],
     },
     {
       type: 'Research',
-      tags: ['Applied Research', 'NLP', 'Academic Lab'],
+      tags: ['Conversational AI research', 'AWS ML deployment', 'NLP dataset creation'],
+      subTags: ['Applied Research', 'NLP', 'Academic Lab'],
       role: 'Graduate Machine Learning Researcher',
       company: 'University of Toronto',
       period: 'Jan 2020 – Dec 2021',
       highlights: [
-        'Designed and evaluated LLM-based conversation therapy systems and generated high-quality therapeutic dialogue datasets.',
-        'Built and deployed an LLM-powered smoking cessation chatbot on AWS SageMaker, Elastic Beanstalk, and Amplify.',
-        'Taught C/C++, Python, ML, and project management across graduate-level courses.',
+        'Researched conversational AI for therapy use cases, designed LLM-driven dialogue systems, and created high-quality therapeutic datasets.',
+        'Built and deployed an LLM-powered smoking-cessation assistant on AWS SageMaker, Elastic Beanstalk, and Amplify for end-to-end experiments and iteration.',
+        'Taught C/C++, Python, and machine learning at the graduate level while mentoring students on applied ML project delivery.',
       ],
     },
     {
       type: 'Industry',
-      tags: ['Applied AI', 'Analytics', 'Enterprise ML'],
+      tags: ['Sentiment NLP', 'Watson ML', 'Disaster response modeling'],
+      subTags: ['Applied AI', 'Analytics', 'Enterprise ML'],
       role: 'Software Engineer',
       company: 'IBM',
       period: 'Mar 2019 – Jan 2020',
       highlights: [
-        'Extracted sentiment metrics from IBM internal Slack channels using Watson Analytics for engagement insights.',
-        'Built an urban flood detection system using Watson ML to support emergency response operations.',
+        'Built NLP pipelines with Watson Analytics to extract sentiment trends from enterprise communication data and surface actionable insights.',
+        'Developed an urban flood detection model with Watson ML to support faster, time-sensitive emergency response decisions.',
       ],
     },
     {
       type: 'Industry',
-      tags: ['Backend Engineering', 'Developer Tooling', 'Systems'],
+      tags: ['Performance instrumentation', 'Workload simulation', 'Backend tooling'],
+      subTags: ['Backend Engineering', 'Developer Tooling', 'Systems'],
       role: 'Software Engineer',
       company: 'Cisco Systems',
       period: 'May 2018 – Dec 2018',
       highlights: [
-        'Developed throughput measurement tooling and dashboards to accelerate production infrastructure debugging.',
-        'Built a query generator for simulating varied workloads with minimal code for faster feature testing.',
+        'Built backend instrumentation and throughput dashboards that made it easier to diagnose performance bottlenecks in production systems.',
+        'Built workload simulation tooling that generated realistic query traffic patterns and sped up backend feature validation.',
       ],
     },
   ],
@@ -201,6 +208,7 @@ const el = {
   techIcons: document.getElementById('techIcons'),
   education: document.getElementById('education'),
   themeToggle: document.getElementById('themeToggle'),
+  scrollHint: document.getElementById('scrollHint'),
 };
 
 function renderTopSection() {
@@ -227,6 +235,9 @@ function renderTimeline(selectedType = 'All') {
       const tags = (item.tags || [])
         .map((tag) => `<span class="role-tag">${tag}</span>`)
         .join('');
+      const subTags = (item.subTags || [])
+        .map((tag) => `<span class="role-subtag">${tag}</span>`)
+        .join('');
 
       return `
         <article class="timeline-item ${typeMeta.key}-item interactive-box">
@@ -234,6 +245,7 @@ function renderTimeline(selectedType = 'All') {
             <p class="experience-badge ${typeMeta.key}-badge">${typeMeta.label}</p>
             <div class="role-tags">${tags}</div>
           </div>
+          <div class="role-subtags">${subTags}</div>
           <h4>${item.role}</h4>
           <p class="meta"><strong>${item.company}</strong> · ${item.period}</p>
           <ul>${item.highlights.map((highlight) => `<li>${highlight}</li>`).join('')}</ul>
@@ -313,16 +325,33 @@ function initScrollReveal() {
   revealElements.forEach((section) => observer.observe(section));
 }
 
+
+function initScrollHint() {
+  if (!el.scrollHint) return;
+
+  const updateScrollHintVisibility = () => {
+    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 64;
+    el.scrollHint.classList.toggle('is-hidden', nearBottom);
+  };
+
+  el.scrollHint.addEventListener('click', () => {
+    window.scrollBy({ top: Math.max(window.innerHeight * 0.75, 420), behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', updateScrollHintVisibility, { passive: true });
+  updateScrollHintVisibility();
+}
+
 function updateThemeButtonText() {
   el.themeToggle.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
 }
 
 function initTheme() {
   const storedTheme = localStorage.getItem('theme');
-  if (storedTheme === 'light') {
-    document.body.classList.remove('dark');
-  } else {
+  if (storedTheme === 'dark') {
     document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
   }
   updateThemeButtonText();
 
@@ -344,3 +373,4 @@ renderTechIcons();
 renderCards(el.education, profileData.education);
 initTheme();
 initScrollReveal();
+initScrollHint();
