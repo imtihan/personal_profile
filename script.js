@@ -27,6 +27,7 @@ const profileData = {
   experience: [
     {
       type: 'Industry',
+      tags: ['Product ML', 'LLM Systems', 'MLOps'],
       role: 'Senior Machine Learning Engineer',
       company: 'Pinterest',
       period: 'Aug 2024 – Present',
@@ -39,6 +40,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      tags: ['GenAI', 'LLM Evaluation', 'Applied Research'],
       role: 'Senior Machine Learning Engineer',
       company: 'Mozilla.ai',
       period: 'Aug 2023 – Aug 2024',
@@ -50,6 +52,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      tags: ['Recommender Systems', 'Product ML', 'Data Pipelines'],
       role: 'Machine Learning Engineer',
       company: 'Meta',
       period: 'May 2022 – Jul 2023',
@@ -61,6 +64,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      tags: ['Data Engineering', 'Platform', 'Product Infrastructure'],
       role: 'Software Engineer',
       company: 'Wish',
       period: 'Jan 2022 – May 2022',
@@ -71,6 +75,7 @@ const profileData = {
     },
     {
       type: 'Research',
+      tags: ['Applied Research', 'NLP', 'Academic Lab'],
       role: 'Graduate Machine Learning Researcher',
       company: 'University of Toronto',
       period: 'Jan 2020 – Dec 2021',
@@ -82,6 +87,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      tags: ['Applied AI', 'Analytics', 'Enterprise ML'],
       role: 'Software Engineer',
       company: 'IBM',
       period: 'Mar 2019 – Jan 2020',
@@ -92,6 +98,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      tags: ['Backend Engineering', 'Developer Tooling', 'Systems'],
       role: 'Software Engineer',
       company: 'Cisco Systems',
       period: 'May 2018 – Dec 2018',
@@ -168,6 +175,17 @@ const profileData = {
   ],
 };
 
+
+const experienceTypeConfig = {
+  All: { label: 'All Work' },
+  Industry: { label: 'Product Engineering', key: 'product-engineering' },
+  Research: { label: 'Research & Academia', key: 'research-academia' },
+};
+
+function slugify(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
 const el = {
   name: document.getElementById('name'),
   headline: document.getElementById('headline'),
@@ -200,23 +218,39 @@ function renderTimeline(selectedType = 'All') {
       ? profileData.experience
       : profileData.experience.filter((item) => item.type === selectedType);
 
+  const selectedKey = selectedType === 'All' ? 'all' : experienceTypeConfig[selectedType].key;
+  el.timeline.className = `timeline filter-${selectedKey}`;
+
   el.timeline.innerHTML = items
-    .map(
-      (item) => `
-        <article class="timeline-item">
+    .map((item) => {
+      const typeMeta = experienceTypeConfig[item.type] || { label: item.type, key: slugify(item.type) };
+      const tags = (item.tags || [])
+        .map((tag) => `<span class="role-tag">${tag}</span>`)
+        .join('');
+
+      return `
+        <article class="timeline-item ${typeMeta.key}-item interactive-box">
+          <div class="experience-header-row">
+            <p class="experience-badge ${typeMeta.key}-badge">${typeMeta.label}</p>
+            <div class="role-tags">${tags}</div>
+          </div>
           <h4>${item.role}</h4>
           <p class="meta"><strong>${item.company}</strong> · ${item.period}</p>
           <ul>${item.highlights.map((highlight) => `<li>${highlight}</li>`).join('')}</ul>
         </article>
-      `
-    )
+      `;
+    })
     .join('');
 }
 
 function renderTabs() {
   const tabs = ['All', ...new Set(profileData.experience.map((item) => item.type))];
   el.tabs.innerHTML = tabs
-    .map((tab, index) => `<button class="tab ${index === 0 ? 'active' : ''}" data-tab="${tab}">${tab}</button>`)
+    .map((tab, index) => {
+      const label = experienceTypeConfig[tab]?.label || tab;
+      const key = tab === 'All' ? 'all' : experienceTypeConfig[tab]?.key || slugify(tab);
+      return `<button class="tab ${index === 0 ? 'active' : ''}" data-tab="${tab}" data-tab-key="${key}">${label}</button>`;
+    })
     .join('');
 
   el.tabs.querySelectorAll('.tab').forEach((tabBtn) => {
@@ -234,7 +268,7 @@ function renderCards(container, items) {
       const link = item.link
         ? `<a class="card-link" href="${item.link}" target="_blank" rel="noreferrer">${item.linkLabel || 'Open'}</a>`
         : '';
-      return `<article class="card"><h4>${item.title}</h4><p>${item.description}</p>${link}</article>`;
+      return `<article class="card interactive-box"><h4>${item.title}</h4><p>${item.description}</p>${link}</article>`;
     })
     .join('');
 }
@@ -243,13 +277,40 @@ function renderTechIcons() {
   el.techIcons.innerHTML = profileData.techStack
     .map(
       (tech) => `
-      <article class="tech-item">
+      <article class="tech-item interactive-box">
         <img src="${tech.icon}" alt="${tech.name} logo" loading="lazy" />
         <span>${tech.name}</span>
       </article>
     `
     )
     .join('');
+}
+
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('.section, .hero-content, .footer');
+  revealElements.forEach((section) => section.classList.add('reveal'));
+
+  if (!('IntersectionObserver' in window)) {
+    revealElements.forEach((section) => section.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.16,
+      rootMargin: '0px 0px -8% 0px',
+    }
+  );
+
+  revealElements.forEach((section) => observer.observe(section));
 }
 
 function updateThemeButtonText() {
@@ -282,3 +343,4 @@ renderCards(el.skillsSummary, profileData.skillsSummary);
 renderTechIcons();
 renderCards(el.education, profileData.education);
 initTheme();
+initScrollReveal();
