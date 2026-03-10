@@ -27,6 +27,7 @@ const profileData = {
   experience: [
     {
       type: 'Industry',
+      logo: 'https://logo.clearbit.com/pinterest.com',
       tags: ['Llama 3 + distilled SLM routing', 'Ray Serve batch inference', 'XGBoost attribute classification'],
       subTags: ['Multilingual information extraction', 'Human-in-the-loop annotation', 'Offline↔online metric alignment'],
       role: 'Senior Machine Learning Engineer',
@@ -41,6 +42,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      logo: 'https://logo.clearbit.com/mozilla.org',
       tags: ['LoRA/QLoRA fine-tuning', 'Ragas + LLM-as-a-judge evaluation', 'Transformers inference with vLLM'],
       subTags: ['RAG groundedness scoring', 'Quantization-aware deployment', 'Prompt + retrieval optimization'],
       role: 'Senior Machine Learning Engineer',
@@ -54,6 +56,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      logo: 'https://logo.clearbit.com/meta.com',
       tags: ['Two-tower retrieval pipelines', 'Learning-to-rank recommenders', 'Large-scale implicit feedback modeling'],
       subTags: ['Candidate generation', 'Feature store training data', 'Engagement lift experimentation'],
       role: 'Machine Learning Engineer',
@@ -67,6 +70,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      logo: 'https://logo.clearbit.com/wish.com',
       tags: ['Presto query optimization', 'Treasure Data to Presto migration', 'Policy-rule backend services'],
       subTags: ['ML data readiness pipelines', 'Low-latency analytics infra', 'Production monitoring'],
       role: 'Software Engineer',
@@ -79,6 +83,7 @@ const profileData = {
     },
     {
       type: 'Research',
+      logo: 'https://logo.clearbit.com/utoronto.ca',
       tags: ['Therapeutic dialogue modeling', 'SageMaker training + deployment', 'NLP dataset design + curation'],
       subTags: ['Conversational AI evaluation', 'Clinical-domain annotation', 'End-to-end experiment loops'],
       role: 'Graduate Machine Learning Researcher',
@@ -92,6 +97,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      logo: 'https://logo.clearbit.com/ibm.com',
       tags: ['Sentiment analysis NLP pipelines', 'Watson ML model lifecycle', 'Flood-risk prediction modeling'],
       subTags: ['Feature engineering', 'Enterprise AI deployment', 'Decision-support analytics'],
       role: 'Software Engineer',
@@ -104,6 +110,7 @@ const profileData = {
     },
     {
       type: 'Industry',
+      logo: 'https://logo.clearbit.com/cisco.com',
       tags: ['Backend performance instrumentation', 'Traffic workload simulation', 'Reliability-focused service tooling'],
       subTags: ['Systems profiling', 'Experiment test harnesses', 'Scalable backend foundations'],
       role: 'Software Engineer',
@@ -222,12 +229,15 @@ function renderTimeline() {
 
       return `
         <article class="timeline-item interactive-box">
-          <div class="experience-header-row">
+          <div class="experience-top-row">
             <h4>${item.role}</h4>
-            <div class="role-tags">${tags}</div>
+            ${item.logo ? `<img class="company-logo" src="${item.logo}" alt="${item.company} logo" loading="lazy" />` : ''}
+          </div>
+          <div class="role-tags">${tags}</div>
+          <div class="experience-header-row">
+            <p class="meta"><strong>${item.company}</strong> · ${item.period}</p>
           </div>
           <div class="role-tags role-subtags">${subTags}</div>
-          <p class="meta"><strong>${item.company}</strong> · ${item.period}</p>
           <ul>${item.highlights.map((highlight) => `<li>${highlight}</li>`).join('')}</ul>
         </article>
       `;
