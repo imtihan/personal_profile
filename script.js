@@ -5,7 +5,7 @@ const profileData = {
   summary:
     'I build machine learning systems from idea to production. My work includes multilingual LLM extraction, recommendation ranking at scale, and practical evaluation pipelines that improve model quality, reliability, and business impact.',
   linkedin: 'https://www.linkedin.com',
-  github: 'https://github.com/imtiahmed',
+  github: 'https://github.com/imtihan',
   profileImage: 'assets/profile-photo.jpg',
   focusAreas: [
     {
@@ -132,7 +132,7 @@ const profileData = {
     {
       title: 'Working with Llama 3 (2024)',
       description: 'Course on running local LLMs, fine-tuning, RAG systems, and deployment patterns.',
-      link: 'https://github.com/imtiahmed',
+      link: 'https://github.com/imtihan',
       linkLabel: 'See GitHub profile',
     },
     {
